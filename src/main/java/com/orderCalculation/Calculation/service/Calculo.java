@@ -1,10 +1,25 @@
 package com.orderCalculation.Calculation.service;
 
+import com.orderCalculation.Calculation.request.PagamentoDetalhado;
+import com.orderCalculation.Calculation.request.PedidoRequest;
+import com.orderCalculation.Calculation.response.ResultadoCompraResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Component
+@AllArgsConstructor
 public class Calculo {
-    public static ResultadoCompraResponse getResultadoCompra(List<PedidoRequest> pedidoRequests, BigDecimal entrega, BigDecimal descontoTotal) {
+    private static Pagamento pagamento;
+
+    public static ResultadoCompraResponse getResultadoCompra(List<PedidoRequest> pedidoRequests, BigDecimal entrega, BigDecimal descontoTotal) throws UnsupportedEncodingException {
         Map<String, BigDecimal> valoresPorComprador = new HashMap<>();
         BigDecimal total = BigDecimal.ZERO;
 
@@ -30,7 +45,7 @@ public class Calculo {
             BigDecimal totalIndividual = valorComDesconto.add(valorEntregaIndividual);
 
 
-            String linkPagamento = gerarLinkPagamento(totalIndividual.setScale(2, RoundingMode.HALF_EVEN), comprador);
+            String linkPagamento = pagamento.gerarLinkPagamento(totalIndividual.setScale(2, RoundingMode.HALF_EVEN), comprador);
 
             pagamentosDetalhados.add(new PagamentoDetalhado(comprador, totalIndividual.setScale(2, RoundingMode.HALF_EVEN), linkPagamento));
         }
@@ -39,10 +54,5 @@ public class Calculo {
     }
 
 
-    private static String gerarLinkPagamento(BigDecimal valor, String comprador) {
-        // Lógica para gerar o link de pagamento com base no valor e no comprador
-        // Aqui você deve implementar a lógica real para gerar o link de pagamento
-        // Este é apenas um exemplo simplificado
-        return "https://picpay.me/" + comprador + "/" + valor;
-    }
+
 }
