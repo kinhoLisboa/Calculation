@@ -1,4 +1,4 @@
-package com.orderCalculation.Calculation.financeiro;
+package com.orderCalculation.Calculation.financial;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 @Component
-public class Pagamento {
+public class Payment {
         @Value("${picpay.base.url}")
         private String picpayBaseUrl;
 
