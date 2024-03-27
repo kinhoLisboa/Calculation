@@ -9,5 +9,6 @@ import java.util.List;
 public record PurchaseResultResponse(
         List<DetailedPayment> pagamentosDetalhados,
         BigDecimal totalComDesconto
-) {}
+) {
+}
 

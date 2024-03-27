@@ -8,4 +8,5 @@ public record PaymentCalculationRequest(
         BigDecimal entrega,
         BigDecimal descontoTotal
 ) {
+
 }
