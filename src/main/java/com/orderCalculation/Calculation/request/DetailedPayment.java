@@ -1,4 +1,4 @@
-package com.orderCalculation.Calculation.request;
+package com.orderCalculation.calculation.request;
 
 import java.math.BigDecimal;
 

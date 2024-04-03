@@ -1,4 +1,4 @@
-package com.orderCalculation.Calculation.financial;
+package com.orderCalculation.calculation.financial;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 @Component
-public class Payment {
+public class Payment implements PaymentFinace{
         @Value("${picpay.base.url}")
         private String picpayBaseUrl;
 
@@ -18,7 +18,7 @@ public class Payment {
 
         @Value("${picpay.seller.token}")
         private String sellerToken;
-
+        @Override
         public String generatePaymentLink(BigDecimal valor, String comprador) throws UnsupportedEncodingException {
             String referenceId = UUID.randomUUID().toString();
 

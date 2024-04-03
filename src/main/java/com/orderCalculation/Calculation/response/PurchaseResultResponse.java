@@ -1,7 +1,7 @@
-package com.orderCalculation.Calculation.response;
+package com.orderCalculation.calculation.response;
 
 
-import com.orderCalculation.Calculation.request.DetailedPayment;
+import com.orderCalculation.calculation.request.DetailedPayment;
 
 import java.math.BigDecimal;
 import java.util.List;

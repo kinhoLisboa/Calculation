@@ -1,9 +1,8 @@
-package com.orderCalculation.Calculation.service;
+package com.orderCalculation.calculation.service;
+import com.orderCalculation.calculation.financial.PaymentFinace;
+import com.orderCalculation.calculation.request.DetailedPayment;
 
-import com.orderCalculation.Calculation.financial.Payment;
-import com.orderCalculation.Calculation.request.DetailedPayment;
-
-import com.orderCalculation.Calculation.response.PurchaseResultResponse;
+import com.orderCalculation.calculation.response.PurchaseResultResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class Calculate {
 
-    private Payment payment;
+    private PaymentFinace paymentFinace;
 
     public PurchaseResultResponse calculatePurchaseResult(Map<String, BigDecimal> valoresPorComprador, BigDecimal entrega, BigDecimal totalComDesconto) throws UnsupportedEncodingException {
         List<DetailedPayment> detailedPayments = calcularPagamentosDetalhados(valoresPorComprador, entrega, totalComDesconto);
@@ -33,7 +32,7 @@ public class Calculate {
             String comprador = entry.getKey();
             BigDecimal valorPedido = entry.getValue();
             BigDecimal totalIndividual = calcularTotalIndividual(valorPedido, entrega, totalPedidosComEntrega, totalComDesconto);
-            String linkPagamento = payment.generatePaymentLink(totalIndividual.setScale(2, RoundingMode.HALF_EVEN), comprador);
+            String linkPagamento = paymentFinace.generatePaymentLink(totalIndividual.setScale(2, RoundingMode.HALF_EVEN), comprador);
             detailedPayments.add(new DetailedPayment(comprador, totalIndividual.setScale(2, RoundingMode.HALF_EVEN), linkPagamento));
         }
         return detailedPayments;
