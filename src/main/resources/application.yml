@@ -1,0 +1,13 @@
+
+spring:
+  application:
+    name: Calculation
+
+picpay:
+  base:
+    url: https://appws.picpay.com/ecommerce/public/payments/
+  callback:
+    url: https://seusite.com/callback
+  seller:
+    token: SEU_TOKEN_PICPAY
+

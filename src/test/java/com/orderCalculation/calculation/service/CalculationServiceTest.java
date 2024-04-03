@@ -1,5 +1,6 @@
 package com.orderCalculation.calculation.service;
 
+import com.orderCalculation.calculation.handler.APIException;
 import com.orderCalculation.calculation.request.DetailedPayment;
 import com.orderCalculation.calculation.request.OrderRequest;
 import com.orderCalculation.calculation.request.PaymentCalculationRequest;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -58,9 +60,9 @@ class CalculationServiceTest {
         valoresPorComprador.put("Joao", new BigDecimal("50"));
 
         when(calculate.calculatePurchaseResult(valoresPorComprador, new BigDecimal("10"), new BigDecimal("20")))
-                .thenThrow(new RuntimeException("Erro ao calcular resultado da compra"));
+                .thenThrow(APIException.build(HttpStatus.NOT_FOUND,"Erro ao calcular resultado da compra"));
 
-        assertThrows(RuntimeException.class, () -> calculationService.calculateProportionalPayment(request));
+        assertThrows(APIException.class, () -> calculationService.calculateProportionalPayment(request));
     }
 
 }
